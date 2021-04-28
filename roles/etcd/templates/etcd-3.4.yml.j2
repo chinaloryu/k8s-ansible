@@ -1,11 +1,14 @@
 #etcd {{ etcd_version }}
 name: {{ NODE_NAME }}
 data-dir: {{ workdir }}/etcd/data
-listen-peer-urls: https://{{ inventory_hostname }}:2380
-listen-client-urls: https://{{ inventory_hostname }}:2379,https://127.0.0.1:2379
-
-advertise-client-urls: https://{{ inventory_hostname }}:2379
-initial-advertise-peer-urls: https://{{ inventory_hostname }}:2380
+# listen-peer-urls: https://{{ inventory_hostname }}:2380
+# listen-client-urls: https://{{ inventory_hostname }}:2379,https://127.0.0.1:2379
+# advertise-client-urls: https://{{ inventory_hostname }}:2379
+# initial-advertise-peer-urls: https://{{ inventory_hostname }}:2380
+listen-peer-urls: https://{{ ansible_eth0.ipv4.address }}:2380
+listen-client-urls: https://{{ ansible_eth0.ipv4.address }}:2379,https://127.0.0.1:2379
+advertise-client-urls: https://{{ ansible_eth0.ipv4.address }}:2379
+initial-advertise-peer-urls: https://{{ ansible_eth0.ipv4.address }}:2380
 initial-cluster: {{ ETCD_CLUSTER }}
 initial-cluster-token: etcd-cluster
 initial-cluster-state: {{ CLUSTER_STATE }}
